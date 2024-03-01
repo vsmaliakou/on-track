@@ -1,6 +1,6 @@
 <script setup>
-import Logo from '@/components/Logo.vue';
-import HeaderProgress from '@/components/HeaderProgress.vue';
+import Logo from '@/components/Logo.vue'
+import HeaderProgress from '@/components/HeaderProgress.vue'
 </script>
 
 <template>
