@@ -18,7 +18,6 @@ defineProps({
     validator: isButtonTypeValid
   }
 })
-
 </script>
 
 <template>
