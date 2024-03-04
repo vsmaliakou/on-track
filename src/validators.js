@@ -17,7 +17,7 @@ export function validateSelectOptions(options) {
 }
 
 export function isSelectOptionValid({ value, label }) {
-  return isNumber(value) && isString(label)
+  return isNumber(value) && isNotEmptyString(label)
 }
 
 export function isUndefinedOrNull(value) {

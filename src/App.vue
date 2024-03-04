@@ -6,11 +6,16 @@ import Activities from '@/pages/Activities.vue'
 import Progress from '@/pages/Progress.vue'
 import { PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE } from '@/const'
 import { ref } from 'vue'
-import { normalizePageHash, generateTimelineItems } from '@/functions'
+import {
+  normalizePageHash,
+  generateTimelineItems,
+  generateActivitySelectOptions
+} from '@/functions'
 
 const currentPage = ref(normalizePageHash())
 const timelineItems = generateTimelineItems()
 const activities = ['Coding', 'Reading', 'Training']
+const activitySelectOptions = generateActivitySelectOptions(activities)
 
 function goTo(page) {
   currentPage.value = page
@@ -21,7 +26,11 @@ function goTo(page) {
   <Header @navigate="goTo($event)" />
 
   <main class="flex flex-grow flex-col">
-    <Timeline v-show="currentPage === PAGE_TIMELINE" :timeline-items="timelineItems" />
+    <Timeline
+      v-show="currentPage === PAGE_TIMELINE"
+      :timeline-items="timelineItems"
+      :activity-select-options="activitySelectOptions"
+    />
 
     <Activities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
 
