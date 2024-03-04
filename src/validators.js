@@ -36,6 +36,10 @@ export function isString(value) {
   return typeof value === 'string'
 }
 
+export function isNotEmptyString(value) {
+  return isString(value) && value.length > 0
+}
+
 export function isUndefined(value) {
   return value === undefined
 }
@@ -50,4 +54,12 @@ export function isBetween(value, start, end) {
 
 export function isHourValid(hour) {
   return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1)
+}
+
+export function isActivityValid(activity) {
+  return isNotEmptyString(activity)
+}
+
+export function validateActivities(activities) {
+  return activities.every(isActivityValid)
 }
