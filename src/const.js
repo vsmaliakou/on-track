@@ -18,3 +18,8 @@ export const periodSelectOptions = [
   { value: 30, label: '0:30' },
   { value: 45, label: '0:45' }
 ]
+
+export const BUTTON_TYPE_DANGER = 'danger'
+export const BUTTON_TYPE_NEUTRAL = 'neutral'
+
+export const BUTTON_TYPES = [BUTTON_TYPE_DANGER, BUTTON_TYPE_NEUTRAL]
