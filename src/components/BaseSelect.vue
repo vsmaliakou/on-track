@@ -2,6 +2,7 @@
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import BaseButton from '@/components/BaseButton.vue'
 import { validateSelectOptions, isUndefinedOrNull, isNumberOrNull } from '@/validators'
+import { BUTTON_TYPE_NEUTRAL } from '@/const'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -26,7 +27,7 @@ const isNotSelected = computed(() => isUndefinedOrNull(props.selected))
 
 <template>
   <div class="flex gap-2">
-    <BaseButton @click="emit('select', null)">
+    <BaseButton @click="emit('select', null)" :type="BUTTON_TYPE_NEUTRAL">
       <XMarkIcon class="h-8" />
     </BaseButton>
 
