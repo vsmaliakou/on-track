@@ -9,12 +9,14 @@ import { ref } from 'vue'
 import {
   normalizePageHash,
   generateTimelineItems,
-  generateActivitySelectOptions
+  generateActivitySelectOptions,
+  generateActivities,
+  id
 } from '@/functions'
 
 const currentPage = ref(normalizePageHash())
 const timelineItems = generateTimelineItems()
-const activities = ref(['Coding', 'Reading', 'Training'])
+const activities = ref(generateActivities())
 const activitySelectOptions = generateActivitySelectOptions(activities.value)
 
 function goTo(page) {
@@ -25,8 +27,12 @@ function deleteActivity(activity) {
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-function createActivity(activity) {
-  activities.value.push(activity)
+function createActivity(name) {
+  activities.value.push({
+    id: id(),
+    name,
+    secondsToComplete: 0
+  })
 }
 </script>
 
