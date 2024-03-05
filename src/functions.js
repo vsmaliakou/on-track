@@ -1,5 +1,5 @@
 import { PAGE_TIMELINE, HOURS_IN_DAY, MIDNIGHT_HOUR, SECONDS_IN_HOUR } from '@/const'
-import { isPageValid } from '@/validators'
+import { isPageValid, isNull } from '@/validators'
 
 export function normalizePageHash() {
   const page = window.location.hash.slice(1)
@@ -37,4 +37,8 @@ export function generateActivities() {
     name,
     secondsToComplete: index * SECONDS_IN_HOUR
   }))
+}
+
+export function normalizeSelectValue(value) {
+  return isNull(value) || isNaN(value) ? value : +value
 }

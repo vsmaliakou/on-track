@@ -67,3 +67,7 @@ export function validateActivities(activities) {
 export function isButtonTypeValid(type) {
   return BUTTON_TYPES.includes(type)
 }
+
+export function isSelectValueValid(value) {
+  return isNotEmptyString(value) || isNumberOrNull(value)
+}
