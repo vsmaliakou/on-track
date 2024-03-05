@@ -30,6 +30,7 @@ const emit = defineEmits({
     </ul>
 
     <ActivitiesEmptyState v-else />
+
     <ActivityForm @submit="emit('createActivity', $event)" />
   </div>
 </template>
