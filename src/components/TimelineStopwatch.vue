@@ -7,7 +7,7 @@ import {
   BUTTON_TYPE_WARNING,
   MILLISECONDS_IN_SECOND
 } from '@/const'
-import { isNumber } from '@/validators'
+import { isHourValid, isNumber } from '@/validators'
 import { formatSeconds } from '@/functions'
 import { ref } from 'vue'
 
@@ -16,11 +16,18 @@ const props = defineProps({
     type: Number,
     default: 0,
     validator: isNumber
+  },
+  hour: {
+    type: Number,
+    required: true,
+    validator: isHourValid
   }
 })
 
 const seconds = ref(props.seconds)
 const isRunning = ref(false)
+
+const isStartButtonDisabled = props.hour !== new Date().getHours()
 
 function start() {
   isRunning.value = setInterval(() => {
@@ -43,7 +50,7 @@ function reset() {
 
 <template>
   <div class="flex w-full gap-2">
-    <BaseButton :type="BUTTON_TYPE_DANGER" @click="reset">
+    <BaseButton :type="BUTTON_TYPE_DANGER" @click="reset" :disabled="!seconds">
       <ArrowPathIcon class="h-8" />
     </BaseButton>
 
@@ -55,7 +62,7 @@ function reset() {
       <PauseIcon class="h-8" />
     </BaseButton>
 
-    <BaseButton v-else :type="BUTTON_TYPE_SUCCESS" @click="start">
+    <BaseButton v-else :type="BUTTON_TYPE_SUCCESS" @click="start" :disabled="isStartButtonDisabled">
       <PlayIcon class="h-8" />
     </BaseButton>
   </div>
