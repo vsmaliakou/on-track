@@ -1,7 +1,7 @@
 <script setup>
 import BaseSelect from '@/components/BaseSelect.vue'
 import TimelineHour from '@/components/TimelineHour.vue'
-import { NULLABLE_ACTIVITY } from '@/const';
+import { NULLABLE_ACTIVITY } from '@/const'
 import {
   isActivityValid,
   isTimelineItemValid,
