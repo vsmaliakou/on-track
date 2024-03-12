@@ -14,8 +14,8 @@ import {
 } from '@/functions'
 
 const currentPage = ref(normalizePageHash())
-const timelineItems = ref(generateTimelineItems())
 const activities = ref(generateActivities())
+const timelineItems = ref(generateTimelineItems(activities.value))
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
 
 function goTo(page) {
@@ -26,6 +26,7 @@ function deleteActivity(activity) {
   timelineItems.value.forEach((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
       timelineItem.activityId = null
+      timelineItem.activitySeconds = 0
     }
   })
 
