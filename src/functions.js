@@ -1,7 +1,6 @@
 import {
   PAGE_TIMELINE,
   HOURS_IN_DAY,
-  MIDNIGHT_HOUR,
   SECONDS_IN_HOUR,
   MINUTES_IN_HOUR,
   SECONDS_IN_MINUTE,
@@ -21,18 +20,14 @@ export function normalizePageHash() {
   return PAGE_TIMELINE
 }
 
-export function generateTimelineItems() {
-  const timelineItems = []
-
-  for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
-    timelineItems.push({
+export function generateTimelineItems(activities) {
+  return [...Array(HOURS_IN_DAY).keys()].map((hour) => {
+    return {
       hour,
-      activityId: null,
-      activitySeconds: 0
-    })
-  }
-
-  return timelineItems
+      activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
+      activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR
+    }
+  })
 }
 
 export function generateActivitySelectOptions(activities) {
