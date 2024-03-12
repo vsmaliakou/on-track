@@ -5,7 +5,7 @@ import {
   validateSelectOptions,
   validateActivities,
   isTimelineItemValid,
-  isActivityValid,
+  isActivityValid
 } from '@/validators'
 
 defineProps({
