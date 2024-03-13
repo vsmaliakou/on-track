@@ -66,6 +66,7 @@ provide('periodSelectOptions', generatePeriodSelectOptions())
 provide('setTimelineItemActivity', setTimelineItemActivity)
 provide('setActivitySecondsToComplete', setActivitySecondsToComplete)
 provide('createActivity', createActivity)
+provide('deleteActivity', deleteActivity)
 </script>
 
 <template>
@@ -79,11 +80,7 @@ provide('createActivity', createActivity)
       ref="timeline"
     />
 
-    <Activities
-      v-show="currentPage === PAGE_ACTIVITIES"
-      :activities="activities"
-      @delete-activity="deleteActivity"
-    />
+    <Activities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
 
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
