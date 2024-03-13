@@ -7,7 +7,8 @@ import {
   validateActivities,
   isTimelineItemValid,
   isActivityValid,
-  isPageValid
+  isPageValid,
+  isNumber
 } from '@/validators'
 import { nextTick, ref, watchPostEffect } from 'vue'
 
@@ -37,6 +38,9 @@ const props = defineProps({
 const emit = defineEmits({
   setTimelineItemActivity(timelineItem, activity) {
     return [isTimelineItemValid(timelineItem), isActivityValid(activity)].every(Boolean)
+  },
+  updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
+    return [isTimelineItemValid(timelineItem), isNumber(activitySeconds)].every(Boolean)
   }
 })
 
@@ -77,6 +81,7 @@ watchPostEffect(async () => {
         :activity-select-options="activitySelectOptions"
         @select-activity="emit('setTimelineItemActivity', timelineItem, $event)"
         @scroll-to-hour="scrollToHour"
+        @update-activity-seconds="emit('updateTimelineItemActivitySeconds', timelineItem, $event)"
       />
     </ul>
   </div>
