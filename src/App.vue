@@ -47,8 +47,8 @@ function createActivity(activity) {
   activities.value.push(activity)
 }
 
-function setTimelineItemActivity(timelineItem, activity) {
-  timelineItem.activityId = activity.id
+function setTimelineItemActivity(timelineItem, activityId) {
+  timelineItem.activityId = activityId
 }
 
 function setActivitySecondsToComplete(activity, secondsToComplete) {
@@ -60,10 +60,10 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
 }
 
 provide('timelineItems', timelineItems.value)
-provide('activities', activities.value)
 provide('activitySelectOptions', activitySelectOptions.value)
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 provide('periodSelectOptions', generatePeriodSelectOptions())
+provide('setTimelineItemActivity', setTimelineItemActivity)
 </script>
 
 <template>
@@ -75,7 +75,6 @@ provide('periodSelectOptions', generatePeriodSelectOptions())
       :timeline-items="timelineItems"
       :current-page="currentPage"
       ref="timeline"
-      @set-timeline-item-activity="setTimelineItemActivity"
     />
 
     <Activities

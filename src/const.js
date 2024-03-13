@@ -30,7 +30,3 @@ export const BUTTON_TYPES = [
   BUTTON_TYPE_SUCCESS,
   BUTTON_TYPE_WARNING
 ]
-
-export const NULLABLE_ACTIVITY = {
-  id: null
-}
