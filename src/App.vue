@@ -59,6 +59,8 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
 }
 
 provide('timelineItems', timelineItems.value)
+provide('activities', activities.value)
+provide('activitySelectOptions', activitySelectOptions.value)
 provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
 </script>
 
@@ -69,8 +71,6 @@ provide('updateTimelineItemActivitySeconds', updateTimelineItemActivitySeconds)
     <Timeline
       v-show="currentPage === PAGE_TIMELINE"
       :timeline-items="timelineItems"
-      :activities="activities"
-      :activity-select-options="activitySelectOptions"
       :current-page="currentPage"
       ref="timeline"
       @set-timeline-item-activity="setTimelineItemActivity"
