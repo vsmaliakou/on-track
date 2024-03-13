@@ -7,30 +7,16 @@ import Progress from '@/pages/Progress.vue'
 import { PAGE_ACTIVITIES, PAGE_PROGRESS, PAGE_TIMELINE } from '@/const'
 import { computed, provide, ref } from 'vue'
 import {
-  normalizePageHash,
   generateTimelineItems,
   generateActivitySelectOptions,
   generateActivities,
   generatePeriodSelectOptions
 } from '@/functions'
+import { currentPage, navigate, timelineRef } from '@/router'
 
-const currentPage = ref(normalizePageHash())
 const activities = ref(generateActivities())
 const timelineItems = ref(generateTimelineItems(activities.value))
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
-const timeline = ref()
-
-function goTo(page) {
-  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
-    timeline.value.scrollToHour()
-  }
-
-  if (page !== PAGE_TIMELINE) {
-    document.body.scrollIntoView()
-  }
-
-  currentPage.value = page
-}
 
 function deleteActivity(activity) {
   timelineItems.value.forEach((timelineItem) => {
@@ -70,14 +56,14 @@ provide('deleteActivity', deleteActivity)
 </script>
 
 <template>
-  <Header @navigate="goTo($event)" />
+  <Header @navigate="navigate" />
 
   <main class="flex flex-grow flex-col">
     <Timeline
       v-show="currentPage === PAGE_TIMELINE"
       :timeline-items="timelineItems"
       :current-page="currentPage"
-      ref="timeline"
+      ref="timelineRef"
     />
 
     <Activities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
@@ -85,5 +71,5 @@ provide('deleteActivity', deleteActivity)
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
 
-  <Nav :current-page="currentPage" @navigate="goTo($event)" />
+  <Nav :current-page="currentPage" @navigate="navigate" />
 </template>
