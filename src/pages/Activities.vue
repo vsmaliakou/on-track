@@ -2,7 +2,7 @@
 import ActivityItem from '@/components/ActivityItem.vue'
 import ActivityForm from '@/components/ActivityForm.vue'
 import ActivitiesEmptyState from '@/components/ActivitiesEmptyState.vue'
-import { isActivityValid, validateActivities } from '@/validators'
+import { validateActivities } from '@/validators'
 
 defineProps({
   activities: {
@@ -11,21 +11,12 @@ defineProps({
     validator: validateActivities
   }
 })
-
-const emit = defineEmits({
-  deleteActivity: isActivityValid
-})
 </script>
 
 <template>
   <div class="flex flex-col grow">
     <ul v-if="activities.length" class="divide-y grow">
-      <ActivityItem
-        v-for="activity in activities"
-        :key="activity.id"
-        :activity="activity"
-        @delete="emit('deleteActivity', activity)"
-      />
+      <ActivityItem v-for="activity in activities" :key="activity.id" :activity="activity" />
     </ul>
 
     <ActivitiesEmptyState v-else />
