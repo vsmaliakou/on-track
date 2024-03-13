@@ -6,7 +6,6 @@ import { NULLABLE_ACTIVITY } from '@/const'
 import {
   isActivityValid,
   isHourValid,
-  isNumber,
   isTimelineItemValid,
   validateActivities,
   validateSelectOptions
@@ -32,8 +31,7 @@ const props = defineProps({
 
 const emit = defineEmits({
   selectActivity: isActivityValid,
-  scrollToHour: isHourValid,
-  updateActivitySeconds: isNumber
+  scrollToHour: isHourValid
 })
 
 function selectActivity(id) {
@@ -59,10 +57,6 @@ function findActivityById(id) {
       @select="selectActivity"
     />
 
-    <TimelineStopwatch
-      :seconds="timelineItem.activitySeconds"
-      :hour="timelineItem.hour"
-      @update-seconds="emit('updateActivitySeconds', $event)"
-    />
+    <TimelineStopwatch :timelineItem="timelineItem" />
   </li>
 </template>
