@@ -77,3 +77,7 @@ export function getTotalActivitySeconds(activity, timelineItems) {
       0
     )
 }
+
+export function currentHour() {
+  return new Date().getHours()
+}
