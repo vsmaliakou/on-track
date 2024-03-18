@@ -19,7 +19,8 @@ import {
 import {
   timelineItems,
   updateTimelineItemActivitySeconds,
-  setTimelineItemActivity
+  setTimelineItemActivity,
+  resetTimelineItemActivities
 } from '@/timeline-items'
 
 provide(keys.timelineItemsKey, readonly(timelineItems))
@@ -29,7 +30,10 @@ provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
 provide(keys.setTimelineItemActivityKey, setTimelineItemActivity)
 provide(keys.setActivitySecondsToCompleteKey, setActivitySecondsToComplete)
 provide(keys.createActivityKey, createActivity)
-provide(keys.deleteActivityKey, deleteActivity)
+provide(keys.deleteActivityKey, (activity) => {
+  resetTimelineItemActivities(activity)
+  deleteActivity(activity)
+})
 </script>
 
 <template>
