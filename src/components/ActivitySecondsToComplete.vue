@@ -15,7 +15,9 @@ const props = defineProps({
 const timelineItems = inject(timelineItemsKey)
 
 const secondsDiff = computed(() => {
-  return getTotalActivitySeconds(props.activity, timelineItems) - props.activity.secondsToComplete
+  return (
+    getTotalActivitySeconds(props.activity, timelineItems.value) - props.activity.secondsToComplete
+  )
 })
 const sign = computed(() => (secondsDiff.value >= 0 ? '+' : '-'))
 const seconds = computed(() => `${sign.value}${formatSeconds(secondsDiff.value)}`)
