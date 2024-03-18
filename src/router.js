@@ -1,8 +1,20 @@
 import { ref } from 'vue'
-import { normalizePageHash } from '@/functions'
 import { PAGE_TIMELINE } from '@/const'
+import { isPageValid } from '@/validators'
 
 export const timelineRef = ref()
+
+function normalizePageHash() {
+  const page = window.location.hash.slice(1)
+
+  if (isPageValid(page)) {
+    return page
+  }
+
+  window.location.hash = PAGE_TIMELINE
+
+  return PAGE_TIMELINE
+}
 
 export const currentPage = ref(normalizePageHash())
 
