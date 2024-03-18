@@ -27,8 +27,8 @@ function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
   timelineItem.activitySeconds += activitySeconds
 }
 
-provide(keys.timelineItemsKey, readonly(timelineItems.value))
-provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions.value))
+provide(keys.timelineItemsKey, readonly(timelineItems))
+provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions))
 provide(keys.updateTimelineItemActivitySecondsKey, updateTimelineItemActivitySeconds)
 provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
 provide(keys.setTimelineItemActivityKey, setTimelineItemActivity)
