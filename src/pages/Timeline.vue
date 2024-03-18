@@ -1,19 +1,15 @@
 <script setup>
 import TimelineItem from '@/components/TimelineItem.vue'
 import { MIDNIGHT_HOUR, PAGE_TIMELINE } from '@/const'
-import { validateTimelineItems, isPageValid } from '@/validators'
+import { validateTimelineItems } from '@/validators'
 import { nextTick, ref, watchPostEffect } from 'vue'
+import { currentPage } from '@/router'
 
-const props = defineProps({
+defineProps({
   timelineItems: {
     type: Array,
     required: true,
     validator: validateTimelineItems
-  },
-  currentPage: {
-    type: String,
-    required: true,
-    validator: isPageValid
   }
 })
 
@@ -34,7 +30,7 @@ function scrollToHour(hour = null, isSmooth = true) {
 }
 
 watchPostEffect(async () => {
-  if (props.currentPage === PAGE_TIMELINE) {
+  if (currentPage.value === PAGE_TIMELINE) {
     await nextTick()
 
     scrollToHour(null, false)
