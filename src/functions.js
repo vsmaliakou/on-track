@@ -1,24 +1,11 @@
 import {
-  PAGE_TIMELINE,
   HOURS_IN_DAY,
   SECONDS_IN_HOUR,
   MINUTES_IN_HOUR,
   SECONDS_IN_MINUTE,
   MILLISECONDS_IN_SECOND
 } from '@/const'
-import { isPageValid, isNull } from '@/validators'
-
-export function normalizePageHash() {
-  const page = window.location.hash.slice(1)
-
-  if (isPageValid(page)) {
-    return page
-  }
-
-  window.location.hash = PAGE_TIMELINE
-
-  return PAGE_TIMELINE
-}
+import { isNull } from '@/validators'
 
 export function generateTimelineItems(activities) {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => {
