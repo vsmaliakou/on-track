@@ -12,7 +12,7 @@ import {
   generateActivities,
   generatePeriodSelectOptions
 } from '@/functions'
-import { currentPage, navigate, timelineRef } from '@/router'
+import { currentPage, timelineRef } from '@/router'
 
 const activities = ref(generateActivities())
 const timelineItems = ref(generateTimelineItems(activities.value))
@@ -56,13 +56,12 @@ provide('deleteActivity', deleteActivity)
 </script>
 
 <template>
-  <Header @navigate="navigate" />
+  <Header />
 
   <main class="flex flex-grow flex-col">
     <Timeline
       v-show="currentPage === PAGE_TIMELINE"
       :timeline-items="timelineItems"
-      :current-page="currentPage"
       ref="timelineRef"
     />
 
@@ -71,5 +70,5 @@ provide('deleteActivity', deleteActivity)
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
 
-  <Nav :current-page="currentPage" @navigate="navigate" />
+  <Nav />
 </template>
