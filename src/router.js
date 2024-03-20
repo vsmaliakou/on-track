@@ -2,8 +2,6 @@ import { ref } from 'vue'
 import { PAGE_TIMELINE } from '@/const'
 import { isPageValid } from '@/validators'
 
-export const timelineRef = ref()
-
 function normalizePageHash() {
   const page = window.location.hash.slice(1)
 
@@ -19,11 +17,6 @@ function normalizePageHash() {
 export const currentPage = ref(normalizePageHash())
 
 export function navigate(page) {
-  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
-    timelineRef.value.scrollToHour()
-  } else if (page !== PAGE_TIMELINE) {
-    document.body.scrollIntoView()
-  }
-
+  document.body.scrollIntoView()
   currentPage.value = page
 }
