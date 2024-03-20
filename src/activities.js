@@ -13,10 +13,6 @@ export function deleteActivity(activity) {
   activities.value.splice(activities.value.indexOf(activity), 1)
 }
 
-export function setActivitySecondsToComplete(activity, secondsToComplete) {
-  activity.secondsToComplete = secondsToComplete || 0
-}
-
 function generateActivities() {
   return ['Coding', 'Training', 'Reading'].map((name, index) => ({
     id: id(),
@@ -27,4 +23,8 @@ function generateActivities() {
 
 function generateActivitySelectOptions(activities) {
   return activities.map((activity) => ({ label: activity.name, value: activity.id }))
+}
+
+export function updateActivity(activity, fields) {
+  return Object.assign(activity, fields)
 }
