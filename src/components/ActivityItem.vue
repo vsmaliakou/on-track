@@ -16,7 +16,7 @@ defineProps({
   }
 })
 
-function deleteAndResetAcivity(activity) {
+function deleteAndResetActivity(activity) {
   resetTimelineItemActivities(activity)
   deleteActivity(activity)
 }
@@ -25,7 +25,7 @@ function deleteAndResetAcivity(activity) {
 <template>
   <li class="flex flex-col gap-2 p-4">
     <div class="flex items-center gap-2">
-      <BaseButton :type="BUTTON_TYPE_DANGER" @click="deleteAndResetAcivity(activity)">
+      <BaseButton :type="BUTTON_TYPE_DANGER" @click="deleteAndResetActivity(activity)">
         <TrashIcon class="h-8" />
       </BaseButton>
 
