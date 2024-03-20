@@ -3,8 +3,8 @@ import BaseSelect from '@/components/BaseSelect.vue'
 import TimelineHour from '@/components/TimelineHour.vue'
 import TimelineStopwatch from '@/components/TimelineStopwatch.vue'
 import { isTimelineItemValid, isUndefined } from '@/validators'
-import { inject } from 'vue'
-import { activitySelectOptionsKey, setTimelineItemActivityKey } from '@/keys'
+import { setTimelineItemActivity } from '@/timeline-items'
+import { activitySelectOptions } from '@/activities'
 
 defineProps({
   timelineItem: {
@@ -13,9 +13,6 @@ defineProps({
     validator: isTimelineItemValid
   }
 })
-
-const activitySelectOptions = inject(activitySelectOptionsKey)
-const setTimelineItemActivity = inject(setTimelineItemActivityKey)
 
 const emit = defineEmits({
   scrollToHour: isUndefined
