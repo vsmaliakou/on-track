@@ -32,3 +32,12 @@ function generateTimelineItems() {
     }
   })
 }
+
+export function getTotalActivitySeconds(activity) {
+  return timelineItems.value
+    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .reduce(
+      (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
+      0
+    )
+}
