@@ -13,17 +13,14 @@ import {
   setActivitySecondsToComplete,
   activitySelectOptions,
   createActivity,
-  deleteActivity,
-  activities
+  deleteActivity
 } from '@/activities'
 import {
-  timelineItems,
   updateTimelineItemActivitySeconds,
   setTimelineItemActivity,
   resetTimelineItemActivities
 } from '@/timeline-items'
 
-provide(keys.timelineItemsKey, readonly(timelineItems))
 provide(keys.activitySelectOptionsKey, readonly(activitySelectOptions))
 provide(keys.updateTimelineItemActivitySecondsKey, updateTimelineItemActivitySeconds)
 provide(keys.periodSelectOptionsKey, readonly(generatePeriodSelectOptions()))
@@ -40,13 +37,9 @@ provide(keys.deleteActivityKey, (activity) => {
   <Header />
 
   <main class="flex flex-grow flex-col">
-    <Timeline
-      v-show="currentPage === PAGE_TIMELINE"
-      :timeline-items="timelineItems"
-      ref="timelineRef"
-    />
+    <Timeline v-show="currentPage === PAGE_TIMELINE" ref="timelineRef" />
 
-    <Activities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" />
+    <Activities v-show="currentPage === PAGE_ACTIVITIES" />
 
     <Progress v-show="currentPage === PAGE_PROGRESS" />
   </main>
