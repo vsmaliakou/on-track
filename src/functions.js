@@ -1,25 +1,8 @@
-import {
-  SECONDS_IN_HOUR,
-  MINUTES_IN_HOUR,
-  SECONDS_IN_MINUTE,
-  MILLISECONDS_IN_SECOND
-} from '@/const'
+import { MINUTES_IN_HOUR, SECONDS_IN_MINUTE, MILLISECONDS_IN_SECOND } from '@/const'
 import { isNull } from '@/validators'
-
-export function generateActivitySelectOptions(activities) {
-  return activities.map((activity) => ({ label: activity.name, value: activity.id }))
-}
 
 export function id() {
   return Date.now().toString(36) + Math.random().toString(36).substring(2)
-}
-
-export function generateActivities() {
-  return ['Coding', 'Training', 'Reading'].map((name, index) => ({
-    id: id(),
-    name,
-    secondsToComplete: index * SECONDS_IN_HOUR
-  }))
 }
 
 export function normalizeSelectValue(value) {
