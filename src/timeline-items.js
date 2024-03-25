@@ -24,8 +24,10 @@ function generateTimelineItems() {
       hour,
       // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
       // activitySeconds: hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR
-      activityId: [0, 1, 2, 3, 4].includes(hour) ? activities.value[hour % 3].id : null,
-      activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
+      // activityId: [0, 1, 2, 3, 4].includes(hour) ? activities.value[hour % 3].id : null,
+      // activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
+      activityId: null,
+      activitySeconds: 0
     }
   })
 }
