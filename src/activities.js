@@ -1,7 +1,6 @@
 import { SECONDS_IN_HOUR, HUNDRED_PERCENT } from '@/const'
 import { id } from '@/functions'
 import { computed, ref } from 'vue'
-import { getTotalActivitySeconds } from '@/timeline-items'
 
 export const activities = ref(generateActivities())
 export const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
@@ -34,8 +33,6 @@ export function updateActivity(activity, fields) {
   return Object.assign(activity, fields)
 }
 
-export function getActivityProgress(activity) {
-  return Math.floor(
-    (getTotalActivitySeconds(activity) * HUNDRED_PERCENT) / activity.secondsToComplete
-  )
+export function calculateActivityCompletionPercentage({ secondsToComplete }, trackedSeconds) {
+  return Math.floor((trackedSeconds * HUNDRED_PERCENT) / secondsToComplete)
 }
