@@ -55,7 +55,7 @@ function reset() {
 watch(
   () => props.timelineItem.activityId,
   () => {
-    updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value })
+    updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value * temp })
   }
 )
 </script>
