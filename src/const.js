@@ -42,3 +42,5 @@ export const BUTTON_TYPES = [
 ]
 
 export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions()
+
+export const HUNDRED_PERCENT = 100
