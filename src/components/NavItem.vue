@@ -1,4 +1,5 @@
 <script setup>
+import BaseIcon from '@/components/BaseIcon.vue'
 import { currentPage, navigate } from '@/router'
 import { isNavItemValid } from '@/validators'
 import { computed } from 'vue'
@@ -22,7 +23,7 @@ const classes = computed(() => {
 <template>
   <li class="flex-1">
     <a :href="`#${navItem.page}`" @click="navigate(navItem.page)" :class="classes">
-      <component :is="navItem.icon" class="h-6 w-6" /> {{ navItem.page }}
+      <BaseIcon :name="navItem.icon" class="h-6 w-6" /> {{ navItem.page }}
     </a>
   </li>
 </template>
