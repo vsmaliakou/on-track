@@ -4,6 +4,9 @@ import { computed, ref } from 'vue'
 
 export const activities = ref(generateActivities())
 export const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
+export const trackedActivities = computed(() => {
+  return activities.value.filter(({ secondsToComplete }) => secondsToComplete)
+})
 
 export function createActivity(activity) {
   activities.value.push(activity)
