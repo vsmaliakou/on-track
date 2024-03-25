@@ -34,7 +34,7 @@ function select(value) {
 <template>
   <div class="flex gap-2">
     <BaseButton @click="select(null)" :type="BUTTON_TYPE_NEUTRAL">
-      <BaseIcon :name="ICON_X_MARK" class="h-8" />
+      <BaseIcon :name="ICON_X_MARK" />
     </BaseButton>
 
     <select
