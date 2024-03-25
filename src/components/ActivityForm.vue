@@ -5,6 +5,7 @@ import { BUTTON_TYPE_PRIMARY } from '@/const'
 import { nextTick, ref } from 'vue'
 import { id } from '@/functions'
 import { createActivity } from '@/activities'
+import { ICON_PLUS } from '@/icons'
 
 const name = ref('')
 
@@ -33,7 +34,7 @@ async function submit() {
     />
 
     <BaseButton :type="BUTTON_TYPE_PRIMARY" :disabled="name.trim() === ''">
-      <BaseIcon name="Plus" class="h-8" />
+      <BaseIcon :name="ICON_PLUS" class="h-8" />
     </BaseButton>
   </form>
 </template>
