@@ -5,6 +5,7 @@ import { validateSelectOptions, isUndefinedOrNull, isSelectValueValid } from '@/
 import { BUTTON_TYPE_NEUTRAL } from '@/const'
 import { computed } from 'vue'
 import { normalizeSelectValue } from '@/functions'
+import { ICON_X_MARK } from '@/icons'
 
 const props = defineProps({
   selected: [String, Number],
@@ -33,7 +34,7 @@ function select(value) {
 <template>
   <div class="flex gap-2">
     <BaseButton @click="select(null)" :type="BUTTON_TYPE_NEUTRAL">
-      <BaseIcon name="XMark" class="h-8" />
+      <BaseIcon :name="ICON_X_MARK" class="h-8" />
     </BaseButton>
 
     <select
