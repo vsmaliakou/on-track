@@ -6,6 +6,8 @@ import { isTimelineItemValid } from '@/validators'
 import { currentHour, formatSeconds } from '@/functions'
 import { ICON_ARROW_PATH, ICON_PAUSE, ICON_PLAY } from '@/icons'
 import { useStopwatch } from '@/composables/stopwatch'
+import { updateTimelineItem } from '@/timeline-items'
+import { watch } from 'vue'
 
 const props = defineProps({
   timelineItem: {
@@ -15,7 +17,16 @@ const props = defineProps({
   }
 })
 
-const { seconds, isRunning, start, stop, reset } = useStopwatch(props.timelineItem)
+const { seconds, isRunning, start, stop, reset } = useStopwatch(
+  props.timelineItem.activitySeconds,
+  updateTimelineItemActivitySeconds
+)
+
+function updateTimelineItemActivitySeconds() {
+  updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value })
+}
+
+watch(() => props.timelineItem.activityId, updateTimelineItemActivitySeconds)
 </script>
 
 <template>
