@@ -13,10 +13,17 @@ function saveState() {
   })
 }
 
+function loadState() {
+  const state = storage.load()
+
+  timelineItems.value = state.timelineItems
+  activities.value = state.activities
+}
+
+loadState()
+
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') {
-    saveState()
-  }
+  document.visibilityState === 'visible' ? loadState() : saveState()
 })
 
 createApp(App).mount('#app')
