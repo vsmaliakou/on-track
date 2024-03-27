@@ -50,10 +50,6 @@ export function formatSeconds(seconds) {
   return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6)
 }
 
-export function currentHour() {
-  return new Date().getHours()
-}
-
 export function getProgressColorClass(percentage) {
   if (percentage < LOW_PERCENT) return 'bg-red-500'
   if (percentage < MEDIUM_PERCENT) return 'bg-yellow-500'
