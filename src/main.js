@@ -1,6 +1,22 @@
-import '@/assets/main.css';
+import '@/assets/main.css'
 
-import { createApp } from 'vue';
-import App from '@/App.vue';
+import { createApp } from 'vue'
+import App from '@/App.vue'
+import * as storage from '@/storage'
+import { timelineItems } from '@/timeline-items'
+import { activities } from '@/activities'
 
-createApp(App).mount('#app');
+function saveState() {
+  storage.save({
+    timelineItems: timelineItems.value,
+    activities: activities.value
+  })
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    saveState()
+  }
+})
+
+createApp(App).mount('#app')
