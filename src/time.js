@@ -1,36 +1,23 @@
-import {
-  HUNDRED_PERCENT,
-  MILLISECONDS_IN_SECOND,
-  MINUTES_IN_HOUR,
-  SECONDS_IN_DAY,
-  SECONDS_IN_MINUTE
-} from '@/const'
-import { computed, ref, watchEffect } from 'vue'
+import { HUNDRED_PERCENT, MILLISECONDS_IN_SECOND, SECONDS_IN_DAY } from '@/const'
+import { computed, ref } from 'vue'
 
-const secondsSinceMidnight = ref(calculateSecondsSinceMidnight())
-let timer = null
+export const now = ref(new Date())
 
+const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0))
+const secondsSinceMidnight = computed(() => (now.value - midnight.value) / MILLISECONDS_IN_SECOND)
 export const secondsSinceMidnightInPercentage = computed(() => {
   return (HUNDRED_PERCENT * secondsSinceMidnight.value) / SECONDS_IN_DAY
 })
 
-function calculateSecondsSinceMidnight() {
-  const now = new Date()
-
-  return SECONDS_IN_MINUTE * MINUTES_IN_HOUR * now.getHours() + SECONDS_IN_MINUTE * now.getMinutes()
-}
+let timer = null
 
 export function startTimer() {
-  secondsSinceMidnight.value = calculateSecondsSinceMidnight()
-  timer = setInterval(() => secondsSinceMidnight.value++, MILLISECONDS_IN_SECOND)
+  now.value = new Date()
+  timer = setInterval(() => {
+    now.value = new Date(now.value.getTime() + 5 * 60 * MILLISECONDS_IN_SECOND)
+  }, MILLISECONDS_IN_SECOND)
 }
 
 export function stopTimer() {
   clearInterval(timer)
 }
-
-watchEffect(() => {
-  if (secondsSinceMidnight.value > SECONDS_IN_DAY) {
-    secondsSinceMidnight.value = 0
-  }
-})
