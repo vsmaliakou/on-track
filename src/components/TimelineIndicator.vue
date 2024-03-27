@@ -5,13 +5,13 @@ import { computed, onActivated, onDeactivated, ref } from 'vue'
 
 const indicatorRef = ref()
 
-function getTimelineHeight() {
-  return indicatorRef.value?.parentNode.getBoundingClientRect().height
-}
-
 const topOffset = computed(() => {
   return (secondsSinceMidnightInPercentage.value * getTimelineHeight()) / HUNDRED_PERCENT
 })
+
+function getTimelineHeight() {
+  return indicatorRef.value?.parentNode.getBoundingClientRect().height
+}
 
 onActivated(startTimer)
 
