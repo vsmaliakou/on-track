@@ -1,7 +1,7 @@
-import { HUNDRED_PERCENT, MILLISECONDS_IN_SECOND, SECONDS_IN_DAY } from '@/const'
+import { HUNDRED_PERCENT, MILLISECONDS_IN_SECOND, SECONDS_IN_DAY, SECONDS_IN_HOUR } from '@/const'
 import { computed, ref } from 'vue'
 
-let timer = null
+let currentDateTimer = null
 
 export const now = ref(today())
 
@@ -11,15 +11,15 @@ export const secondsSinceMidnightInPercentage = computed(() => {
   return (HUNDRED_PERCENT * secondsSinceMidnight.value) / SECONDS_IN_DAY
 })
 
-export function startTimer() {
+export function startCurrentDateTimer() {
   now.value = today()
-  timer = setInterval(() => {
+  currentDateTimer = setInterval(() => {
     now.value = new Date(now.value.getTime() + MILLISECONDS_IN_SECOND)
   }, MILLISECONDS_IN_SECOND)
 }
 
-export function stopTimer() {
-  clearInterval(timer)
+export function stopCurrentDateTimer() {
+  clearInterval(currentDateTimer)
 }
 
 export function today() {
@@ -38,4 +38,17 @@ export function tomorrow() {
 
 export function isToday(date) {
   return date.toDateString() === today().toDateString()
+}
+
+export function endOfHour(date) {
+  const endOfHour = new Date(date)
+
+  endOfHour.setTime(endOfHour.getTime() + SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND)
+  endOfHour.setMinutes(0, 0, 0)
+
+  return endOfHour
+}
+
+export function toSeconds(milliseconds) {
+  return Math.round(milliseconds / MILLISECONDS_IN_SECOND)
 }
