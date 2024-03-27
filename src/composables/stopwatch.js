@@ -4,11 +4,10 @@ import { ref } from 'vue'
 export function useStopwatch(initialSeconds) {
   const seconds = ref(initialSeconds)
   const isRunning = ref(false)
-  const temp = 120
 
   function start() {
     isRunning.value = setInterval(() => {
-      seconds.value += temp
+      seconds.value++
     }, MILLISECONDS_IN_SECOND)
   }
 

@@ -5,6 +5,7 @@ import App from '@/App.vue'
 import * as storage from '@/storage'
 import { timelineItems } from '@/timeline-items'
 import { activities } from '@/activities'
+import { isToday } from '@/time'
 
 function saveState() {
   storage.save({
@@ -16,8 +17,8 @@ function saveState() {
 function loadState() {
   const state = storage.load()
 
-  timelineItems.value = state.timelineItems
-  activities.value = state.activities
+  timelineItems.value = isToday(new Date(state.date)) ? state.timelineItems : timelineItems.value
+  activities.value = state.activities || activities.value
 }
 
 loadState()
