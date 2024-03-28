@@ -1,6 +1,7 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { HOURS_IN_DAY, MIDNIGHT_HOUR } from '@/const'
-import { endOfHour, isToday, toSeconds, today } from '@/time'
+import { endOfHour, isToday, now, toSeconds, today } from '@/time'
+import { stopTimelineItemTimer } from '@/timeline-item-timer'
 
 export const timelineItems = ref([])
 export const timelineItemRefs = ref([])
@@ -82,3 +83,13 @@ export function initializeTimelineItems(state) {
     resetTimelineItems()
   }
 }
+
+watch(now, (after, before) => {
+  if (activeTimelineItem.value && activeTimelineItem.value.hour !== after.getHours()) {
+    stopTimelineItemTimer()
+  }
+
+  if (before.getHours() !== after.getHours() && after.getHours() === MIDNIGHT_HOUR) {
+    resetTimelineItems()
+  }
+})
