@@ -53,13 +53,9 @@ export function filterTimelineItemsByActivity(timelineItems, { id }) {
   return timelineItems.filter(({ activityId }) => activityId === id)
 }
 
-export function resetTimelineItems(timelineItems) {
-  return timelineItems.map((timelineItem) => {
-    return {
-      ...timelineItem,
-      activitySeconds: 0,
-      isActive: false
-    }
+export function resetTimelineItems() {
+  timelineItems.value.forEach((timelineItem) => {
+    updateTimelineItem(timelineItem, { activitySeconds: 0, isActive: false })
   })
 }
 
@@ -69,14 +65,10 @@ function calculateIdleSeconds(lastActiveAt) {
     : toSeconds(endOfHour(lastActiveAt) - lastActiveAt)
 }
 
-function syncIdleSeconds(timelineItems, lastActiveAt) {
-  const activeTimelineItem = timelineItems.find(({ isActive }) => isActive)
-
-  if (activeTimelineItem) {
-    activeTimelineItem.activitySeconds += calculateIdleSeconds(lastActiveAt)
-  }
-
-  return timelineItems
+function syncIdleSeconds(lastActiveAt) {
+  updateTimelineItem(activeTimelineItem.value, {
+    activitySeconds: activeTimelineItem.value.activitySeconds + calculateIdleSeconds(lastActiveAt)
+  })
 }
 
 export function initializeTimelineItems(state) {
@@ -85,8 +77,8 @@ export function initializeTimelineItems(state) {
   timelineItems.value = state.timelineItems ?? generateTimelineItems()
 
   if (activeTimelineItem.value && isToday(lastActiveAt)) {
-    timelineItems.value = syncIdleSeconds(state.timelineItems, lastActiveAt)
+    syncIdleSeconds(lastActiveAt)
   } else if (state.timelineItems && !isToday(lastActiveAt)) {
-    timelineItems.value = resetTimelineItems(state.timelineItems)
+    resetTimelineItems()
   }
 }
