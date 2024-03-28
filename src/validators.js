@@ -9,10 +9,6 @@ export function isTimelineItemValid({ hour }) {
   return isHourValid(hour)
 }
 
-export function validateTimelineItems(timelineItems) {
-  return timelineItems.every(isTimelineItemValid)
-}
-
 export function validateSelectOptions(options) {
   return options.every(isSelectOptionValid)
 }
@@ -63,10 +59,6 @@ export function isActivityValid({ id, name, secondsToComplete }) {
   }
 
   return [isNotEmptyString(id), isNotEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
-}
-
-export function validateActivities(activities) {
-  return activities.every(isActivityValid)
 }
 
 export function isButtonTypeValid(type) {
