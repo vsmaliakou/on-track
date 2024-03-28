@@ -5,43 +5,30 @@ import { BUTTON_TYPE_DANGER, BUTTON_TYPE_SUCCESS, BUTTON_TYPE_WARNING } from '@/
 import { isTimelineItemValid } from '@/validators'
 import { formatSeconds } from '@/functions'
 import { ICON_ARROW_PATH, ICON_PAUSE, ICON_PLAY } from '@/icons'
-import { useStopwatch } from '@/composables/stopwatch'
-import { updateTimelineItem } from '@/timeline-items'
-import { onMounted, watch, watchEffect } from 'vue'
 import { now } from '@/time'
+import {
+  timelineItemTimer,
+  startTimelineItemTimer,
+  stopTimelineItemTimer,
+  resetTimelineItemTimer
+} from '@/timeline-items'
 
-const props = defineProps({
+defineProps({
   timelineItem: {
     type: Object,
     required: true,
     validator: isTimelineItemValid
   }
 })
-
-const { seconds, isRunning, start, stop, reset } = useStopwatch(props.timelineItem.activitySeconds)
-
-watchEffect(() => updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value }))
-
-watchEffect(() => {
-  if (props.timelineItem.hour !== now.value.getHours() && isRunning.value) {
-    stop()
-  }
-})
-
-watch(isRunning, () => {
-  updateTimelineItem(props.timelineItem, { isActive: Boolean(isRunning.value) })
-})
-
-onMounted(() => {
-  if (props.timelineItem.isActive) {
-    start()
-  }
-})
 </script>
 
 <template>
   <div class="flex w-full gap-2">
-    <BaseButton :type="BUTTON_TYPE_DANGER" @click="reset" :disabled="!timelineItem.activitySeconds">
+    <BaseButton
+      :type="BUTTON_TYPE_DANGER"
+      @click="resetTimelineItemTimer(timelineItem)"
+      :disabled="!timelineItem.activitySeconds"
+    >
       <BaseIcon :name="ICON_ARROW_PATH" />
     </BaseButton>
 
@@ -49,14 +36,18 @@ onMounted(() => {
       {{ formatSeconds(timelineItem.activitySeconds) }}
     </div>
 
-    <BaseButton v-if="isRunning" :type="BUTTON_TYPE_WARNING" @click="stop">
+    <BaseButton
+      v-if="timelineItemTimer && timelineItem.hour === now.getHours()"
+      :type="BUTTON_TYPE_WARNING"
+      @click="stopTimelineItemTimer(timelineItem)"
+    >
       <BaseIcon :name="ICON_PAUSE" />
     </BaseButton>
 
     <BaseButton
       v-else
       :type="BUTTON_TYPE_SUCCESS"
-      @click="start"
+      @click="startTimelineItemTimer(timelineItem)"
       :disabled="timelineItem.hour !== now.getHours()"
     >
       <BaseIcon :name="ICON_PLAY" />
