@@ -11,7 +11,7 @@ import {
   startTimelineItemTimer,
   stopTimelineItemTimer,
   resetTimelineItemTimer
-} from '@/timeline-items'
+} from '@/timeline-item-timer'
 
 defineProps({
   timelineItem: {
