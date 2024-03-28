@@ -1,8 +1,19 @@
 import { APP_NAME } from '@/const'
-import { today, isToday, endOfHour, toSeconds } from '@/time'
-import { activeTimelineItem, resetTimelineItems, timelineItems } from '@/timeline-items'
-import { activities } from '@/activities'
+import { today } from '@/time'
+import { activeTimelineItem, initializeTimelineItems, timelineItems } from '@/timeline-items'
+import { activities, initializeActivities } from '@/activities'
 import { startTimelineItemTimer, stopTimelineItemTimer } from '@/timeline-item-timer'
+
+function loadFromLocalStorage() {
+  return JSON.parse(localStorage.getItem(APP_NAME) ?? '{}')
+}
+
+export function loadState() {
+  const state = loadFromLocalStorage()
+
+  initializeActivities(state)
+  initializeTimelineItems(state)
+}
 
 export function saveState() {
   localStorage.setItem(
@@ -13,37 +24,6 @@ export function saveState() {
       lastActiveAt: today()
     })
   )
-}
-
-function calculateIdleSeconds(lastActiveAt) {
-  return lastActiveAt.getHours() === today().getHours()
-    ? toSeconds(today() - lastActiveAt)
-    : toSeconds(endOfHour(lastActiveAt) - lastActiveAt)
-}
-
-function syncIdleSeconds(timelineItems, lastActiveAt) {
-  const activeTimelineItem = timelineItems.find(({ isActive }) => isActive)
-
-  if (activeTimelineItem) {
-    activeTimelineItem.activitySeconds += calculateIdleSeconds(lastActiveAt)
-  }
-
-  return timelineItems
-}
-
-export function loadState() {
-  const serializedState = localStorage.getItem(APP_NAME)
-  const state = serializedState ? JSON.parse(serializedState) : {}
-  const lastActiveAt = new Date(state.lastActiveAt)
-
-  activities.value = state.activities || activities.value
-  timelineItems.value = state.timelineItems ?? timelineItems.value
-
-  if (activeTimelineItem.value && isToday(lastActiveAt)) {
-    timelineItems.value = syncIdleSeconds(state.timelineItems, lastActiveAt)
-  } else if (state.timelineItems && !isToday(lastActiveAt)) {
-    timelineItems.value = resetTimelineItems(state.timelineItems)
-  }
 }
 
 export function syncState(shouldLoad = true) {
