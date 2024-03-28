@@ -52,3 +52,13 @@ export function scrollToCurrentHour(isSmooth = false) {
 export function filterTimelineItemsByActivity(timelineItems, { id }) {
   return timelineItems.filter(({ activityId }) => activityId === id)
 }
+
+export function resetTimelineItems(timelineItems) {
+  return timelineItems.map((timelineItem) => {
+    return {
+      ...timelineItem,
+      activitySeconds: 0,
+      isActive: false
+    }
+  })
+}
